@@ -65,11 +65,12 @@ def check(s1,s2, master):
             return False
     return True
 
+print len(results)
 # brute force compare all strings
-for i in xrange(len(results)):
-    for j in xrange(i,len(results)):
-        test = check(results[i],results[j], master)
-        if test:
-            print results[i],results[j], test
-    if i % 100 == 0:
-        print i
+# for i in xrange(len(results)):
+#     for j in xrange(i,len(results)):
+#         test = check(results[i],results[j], master)
+#         if test:
+#             print results[i],results[j], test
+#     if i % 100 == 0:
+#         print i
