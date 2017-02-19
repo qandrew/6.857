@@ -1,18 +1,15 @@
 # 6.857 testcode
 
-a = 'a2 6c 49 3f 20 81 c2 e4 da 16 c9'
-b = 'b1 71 4b 28 27 94 ce fd da 17 c0'
+c1 = 'a2 6c 49 3f 20 81 c2 e4 da 16 c9'
+c2 = 'b1 71 4b 28 27 94 ce fd da 17 c0'
 
-unia = ''
-for let in a:
-	unia += str(ord(let))
-unib = ''	
-for let in b:
-	unib += str(ord(let))
-
-# print unia
-# print unib
-
+# open all 11 letter words from file
+results = []
+with open('11 letter.txt') as inputfile:
+    for line in inputfile:
+        temp = line.strip().split(' ')
+        for word in temp:
+            results.append(word)
 
 def sxor(s1,s2, needtosplit=True):    
     # convert strings to a list of character pair tuples
@@ -36,28 +33,12 @@ def sxor(s1,s2, needtosplit=True):
     	# print format(hex1 ^ hex2,"#010b")
     return master
 
-master = sxor(a,b)
+master = sxor(c1,c2) #this is c1 ^ c2
 print master
 
-
-def letterxor(s1):
-	print 'input', s1, format(s1,'#010b')
-	for i in xrange(ord('a'),ord('z')+1):
-		print i, chr(i), s1 ^ i, chr(s1 ^ i)
-
-# letterxor(29)
-
-# all 11 letter words
-results = []
-with open('11 letter.txt') as inputfile:
-    for line in inputfile:
-        temp = line.strip().split(' ')
-        for word in temp:
-            results.append(word)
-
 def check(s1,s2, master):
+    #check if s1 ^ s2 == master
     assert len(s1) == len(s2)
-
     for i in xrange(len(s1)):
         h1 = ord(s1[i])
         h2 = ord(s2[i])
@@ -65,12 +46,11 @@ def check(s1,s2, master):
             return False
     return True
 
-print len(results)
 # brute force compare all strings
-# for i in xrange(len(results)):
-#     for j in xrange(i,len(results)):
-#         test = check(results[i],results[j], master)
-#         if test:
-#             print results[i],results[j], test
-#     if i % 100 == 0:
-#         print i
+for i in xrange(len(results)):
+    for j in xrange(i,len(results)):
+        test = check(results[i],results[j], master)
+        if test: #if there exists a match
+            print results[i],results[j], test
+    if i % 100 == 0:
+        print i
