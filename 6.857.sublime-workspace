@@ -519,6 +519,41 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "Pset 1/p1-3b.py",
+			"settings":
+			{
+				"buffer_size": 2158,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Pset 1/p1-3a.py",
+			"settings":
+			{
+				"buffer_size": 1680,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/andrew/Dropbox/MIT/2016F/UROP/pairing_python/C/pairing_examples/simple_pairing/massif_prof.txt",
+			"settings":
+			{
+				"buffer_size": 591597,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Pset 1/tenciphs.txt",
+			"settings":
+			{
+				"buffer_size": 2519,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -568,7 +603,8 @@
 	},
 	"expanded_folders":
 	[
-		"/home/andrew/Documents/Github/6.857"
+		"/home/andrew/Documents/Github/6.857",
+		"/home/andrew/Documents/Github/6.857/Pset 1"
 	],
 	"file_history":
 	[
@@ -696,7 +732,7 @@
 	],
 	"find":
 	{
-		"height": 27.0
+		"height": 35.0
 	},
 	"find_in_files":
 	{
@@ -711,6 +747,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"a ",
 			"FrobeniusConstant",
 			"check",
 			"finalexpo",
@@ -837,8 +874,7 @@
 			"while",
 			"giveFp2Sqrt",
 			"giveFpSqrt",
-			"prime_mod_sqrt",
-			"_exp"
+			"prime_mod_sqrt"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -856,8 +892,125 @@
 	"groups":
 	[
 		{
+			"selected": 2,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "Pset 1/p1-3b.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2158,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2153,
+								2153
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 513.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "Pset 1/p1-3a.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1680,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								759,
+								759
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 285.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "/home/andrew/Dropbox/MIT/2016F/UROP/pairing_python/C/pairing_examples/simple_pairing/massif_prof.txt",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 591597,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4031,
+								4046
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "Pset 1/tenciphs.txt",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2519,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1262,
+								1262
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage",
+							"word_wrap": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				}
 			]
 		}
 	],
@@ -924,7 +1077,7 @@
 		[
 			[
 				"",
-				"~/Documents/Github/6.824/6.824.sublime-project"
+				"~/pairing/UROP.sublime-project"
 			]
 		],
 		"width": 380.0
@@ -945,7 +1098,7 @@
 	"show_minimap": true,
 	"show_open_files": true,
 	"show_tabs": true,
-	"side_bar_visible": true,
+	"side_bar_visible": false,
 	"side_bar_width": 179.0,
 	"status_bar_visible": true,
 	"template_settings":
