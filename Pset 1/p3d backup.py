@@ -139,6 +139,7 @@ for i in xrange(len(ciphs[0])):
 	print i
 	if i == 1:
 		# let = 
+		pass
 
 
 # for i in xrange(len(q1)):
