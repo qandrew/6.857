@@ -1,0 +1,193 @@
+%
+% 6.857 homework template
+%
+% NOTE:
+% Be sure to define your team members with the \team command
+% Be sure to define the problem set with the \ps command
+% Be sure to use the \answer command for each of your answers 
+\documentclass[11pt]{article}
+
+\newcommand{\team}{ Severyn Kozak \\ Ray Wang \\ Andrew Xia }
+\newcommand{\ps}{ Problem Set 1 }
+
+%\pagestyle{headings}
+\usepackage[dvips]{graphics,color}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{latexsym}
+\usepackage{hyperref}
+\setlength{\parskip}{1pc}
+\setlength{\parindent}{0pt}
+\setlength{\topmargin}{-3pc}
+\setlength{\textheight}{9.5in}
+\setlength{\oddsidemargin}{0pc}
+\setlength{\evensidemargin}{0pc}
+\setlength{\textwidth}{6.5in}
+
+\newcommand{\answer}[1]{
+\newpage
+\noindent
+\framebox{
+	\vbox{
+		6.857 Homework \hfill {\bf \ps} \hfill \# #1  \\ 
+		\team \hfill February 27, 2017
+	}
+}
+\bigskip
+
+}
+
+
+\begin{document}
+
+\answer{1-1 - Growth of Cryptography Lecture}
+\textbf{a)} Fermat's Little Theorem was proven by Euler.
+\\
+\\ \textbf{b)} The Radio and the World Wide Web were major impacts to the growth of cryptography
+\\
+\\ \textbf{c)} The factors are 89681 and 96079.
+
+\answer{1-2 - Security Policy for Amazon Echo}
+
+
+\section{Introduction}
+The Amazon Echo is a voice-activated AI personal assistant built into a small, portable device. This document defines a security policy for the actions that the Echo can perform and its interactions with the environment.
+
+\section{Principals}
+A user is anyone who interacts with the Echo by issuing a command, and falls into one of following categories:
+
+\subsection{Owner}
+Roughly speaking, this is the owner of the Echo, or more precisely the owner of the Amazon account that it's linked to. The owner should have authority over and access to all actions on the Amazon Echo.
+
+\subsection{Other}
+This applies to any non-owner who interacts with the Echo — this person may be trusted by the owner to use the device, or would otherwise be interfering with the device, either maliciously or not.
+
+\subsubsection{Adversary}
+This applies to any non-owner who interacts with the Echo with malicious intent, for example trying to retrieve the Owner's credit card details or private calendar information.
+
+\subsubsection{Interferer}
+This applies to any non-owner who inadvertently interferes with the operation of the device, such as by shouting in the vicinity.
+
+
+\subsubsection{Friend}
+A friend of the owner is someone that the owner can trust to operate the Echo for non-sensitive actions.
+
+\section{Actions}
+The Echo allows the Owner to perform a number of different actions of varying sensitivity, such as:
+
+\begin{enumerate}
+    \item query the current time or weather conditions
+    \item query Google/other search engines
+    \item request Uber rides
+    \item view their calendar
+    \item access bank information
+    \item make Amazon Prime purchases
+    \item control home appliances
+    \item change account settings
+\end{enumerate}
+
+In most situations it'll also be appropriate to let Others (ie non-Owners) perform some of these actions as well, like playing music or querying a search engine. Actions that involve the Owner's private data, like retrieving credit card details, should require authentication by the Owner, as described in the next section. The actions can be categorized by the following definitions:
+
+\begin{enumerate}
+    \item \textbf{Not Sensitive}: This category contains actions that access public information, such that the completion of non-sensitive actions through the Amazon Echo would not reveal further information about the owner. For example, requesting the current time or weather conditions is a non-sensitive action.
+    \item \textbf{Sensitive}: these actions require some degree of authorization, but don't reveal private data. For example, controlling home appliances would be a sensitive action, as this action accesses the Echo owner's house. However, sensitive actions can be completed by friends, since the owner's private data would not be accessed in a sensitive action.
+    \item \textbf{Private}: these actions involve private data, such as PII (personally identifiable information, including financial and health records) and require the strictest authorization, and should only be accessible to the owner. Changing the Echo's account settings would be a private action.
+\end{enumerate}
+
+\section{Security Policies}
+Each type of action needs to be associated with a different permission level to allow for granularity. For instance, while the Owner would probably want to allow Others to ask the Echo to play music, they wouldn't want them asking about their credit card details without authentication. Thus, the Echo should support three levels of authentication (in order of increasing security):
+
+\begin{enumerate}
+    \item \textbf{none}: No authentication of any kind are required for these requests (eg asking the current time, weather). This category is appropriate for actions that should reasonably be performed by anyone, since the queries requested are all public data.
+    
+    \item \textbf{voice-recognition}: authentication by recognizing the voice as the Owner's or someone else's. A useful option for actions that aren't terribly sensitive but that Others still shouldn't perform on the Owner's behalf, like setting alarms, or maybe even playing music if it becomes the subject of pranks on the Owner. However, this is a rather weak authentication method, because whispers/loud voices, or similar-sounding voices, could confuse the Echo. 
+    
+    \item \textbf{PIN (spoken/entered)}: these actions are guarded by a 4-digit PIN that must be spoken out loud. Appropriate for private operations, like viewing personal bank information or making Amazon Prime purchases. There should also be an option to enter the PIN on the mobile device associated with the Echo (ie the Owner's), in case there are people nearby that might overhear the PIN. PIN attempts should be rate-limited with increasing delay; the first failed attempt can be retried immediately, the second after 10 seconds, the third after a minute, the fourth after an hour, etc (these numbers are only provided as examples).
+\end{enumerate}
+
+The Owner should have the ability to set their preferred permission level for each category of action through the Amazon Echo application on their mobile device. For instance, they might initially configure ``play music'' with permissions \textbf{none}, but if others cause trouble by constantly playing their own music on the Echo, they might reconfigure the action with permissions \textbf{voice-recognition}.
+
+For actions that involve \textbf{Sensitive} data, the default configuration must be \textbf{PIN (spoken/entered)} and \textbf{voice-recognition}. 
+
+\section{User Privacy}
+The Echo should come equipped with a hardware mute button that disables its voice-recording circuitry, thereby preventing compromised Echos from being used as snooping devices.
+
+To protect users' private communications, Amazon should enforce a strong encryption scheme between the Echo and Amazon's cloud servers — preventing unwanted parties such as law enforcement and malicious eavesdroppers from stealing personal information. In addition to encrypting information, an authentication protocol should also be implemented such that the User's Amazon Echo can confirm that it is communicating with an authentic Amazon server.
+
+Amazon should also have policies in place to protect user data in the case of a valid warrant, by clearly defining data retention policies and what kind of data they store. 
+
+\answer{1-3 - Re-Using a One-Time Pad}
+
+{\bf (a)} Assuming that all the characters from both original plaintexts $M_1$ and $M_2$ must be letters of the alphabet, we know that the ASCII range of the plaintext characters must be from the range 0x41 to 0x5A (uppercase) and 0x61 to 0x7A (lowercase). We are given ciphertexts 
+$$C_1 = \texttt{a2 6c 49 3f 20 81 c2 e4 da 16 c9}$$
+$$C_2 = \texttt{b1 71 4b 28 27 94 ce fd da 17 c0}$$
+Let us assume for now that both ciphertexts were encrypted using the same pad $P$. As we know $C_1 = M_1 \oplus P$ and $C_2 = M_2 \oplus P$, we also see that $C_1 \oplus C_2 = M_1 \oplus M_2$. 
+\\ Since we know that the inputs $M_1$ and $M_2$ are both 11 letter English words, we wrote a program to compare all 27,893 11-letter English words. Let $m_1, m_2$ be the ASCII values of two 11-letter words from our collection of 27,893 words. If we see that $m_1 \oplus m_2 == C_1 \oplus C_2$, then we know that $m_1, m_2$ are our plaintexts. After comparing all the 11-letter words with one another, we found that the two words are COMPUTATION and PROGRAMMING.
+\\ The code can be found \textbf{\href{https://github.com/qandrew/6.857/blob/master/Pset\%201/p1-3a.py}{here}}.
+\\
+\\ \textbf{(b)} It is decryptable, and the algorithm is described as follows:
+\\ Bob is given C, and P, where $C$ is of length $n$ and $P$ is at least length $n$. Bob wants to figure out message $M$ of length $n$ that Alice sent. For the base case, we know $c_1 = m_1 \oplus g(p_1 \oplus 0) = m_1 \oplus g(p_1)$. Because we know $p_1$, we can compute $g(p_1)$. Thus, we see 
+$$c_1 \oplus g(p_1) = m_1 \oplus g(p_1) \oplus g(p_1) = m_1$$
+Now looking at cases where $i > 1$, we know, $c_i = m_i \oplus g(p_i \oplus c_{i-1})$. Since we know $c_i, p_i$, and $c_{i-1}$, we are able to compute $g(p_i \oplus c_{i-1})$. Thus we see that 
+$$c_i \oplus g(p_i \oplus c_{i-1}) = m_i \oplus g(p_i \oplus c_{i-1}) \oplus g(p_i \oplus c_{i-1}) = m_i$$
+
+\textbf{(c)} We want to show that Ben's scheme is `one time secure' like the One Time Pad, which is equivalent to showing that $P(M) = P(M|C)$. Let $C$ and $M$ be of length $n$. 
+\\ We see that for the base case, $c_1 = m_1 \oplus g(p_1)$. Since the mapping function $g$ is public knowledge, applying function $g$ on $p_1$ doesn't increase or decrease any information compared to simply doing $m_1 \oplus p_1$. Since we know $m_1 \oplus p_1$ is one-time secure, then we also see $c_1 = m_1 \oplus g(p_1)$ is one-time secure.
+\\ For $i > 1$, we know $c_i = m_i \oplus g(p_i \oplus c_{i-1})$. Because the function $g$ is public knowledge, the level of security of $c_i = m_i \oplus g(p_i \oplus c_{i-1})$ and $m_i \oplus p_i \oplus c_{i-1}$ is the same. We know from an OTP that $m_i \oplus p_i$ is one-time secure. We also know that $c_{i-1}$ is one-time secure. Thus, $m_i \oplus p_i \oplus c_{i-1}$ is one-time secure, so $c_i$ is one-time secure.
+\\
+\\ \textbf{(d)}
+Since the messages only contain printable characters (i.e. bytes in the range [32, 126]), we guessed that the number of possible pad bytes for every cipher byte would be substantially reduced. We applied the following brute-force search: for every byte $c_i \in C_1$, consider all of the possible values of the $i^{th}$ pad $p_i$, $p \in [0, 255]$. Since we know the corresponding message $m$ must be a printable character, the ASCII value of $m$ must lie in the range $[33,126]$. For every $p$, if there exists an $m \in [33, 126]$ such that $m \oplus g(p \oplus c_{i - 1}) = c_i$, then $p$ is potentially a possible value of $p_i$. If the same holds true for the corresponding $i^{th}$ byte from all of the other ciphertexts $C_2, \ldots, C_{10}$, then $p$ is confirmed to be a possible value of $p_i$. We implemented the algorithm in a Python script and found that, for most $c_i$ bytes, only one possible $p_i$ could be found. For these clear-cut values of $p_i$, we decrypted the ciphertext with $m_i = c_i \oplus g(p_i \oplus c_{i - 1})$ and got the following result:
+
+\begin{align*}
+C_1=& \texttt{ \_he best know\_ cryptogra\_hic problem is that of privacy: preventing the unauthorized}\\
+C_2=& \texttt{ \_extraction o\_ informati\_n from communications over an insecure channel. In order to}\\
+C_3=& \texttt{ \_use cryptogr\_phy to ins\_re privacy, however, it is currently necessary for the comm}\\
+C_4=& \texttt{ \_nicating par\_ies to sha\_e a key which is known to no one else. This is done by send}\\
+C_5=& \texttt{ \_ng the key i\_ advance o\_er some secure channel such a private courier or registered}\\
+C_6=& \texttt{ \_mail. A priv\_te convers\_tion between two people with no prior acquaintance is a com}\\
+C_7=& \texttt{ \_on occurrenc\_ in busine\_s, however, and it is unrealistic to expect initial busines}\\
+C_8=& \texttt{ \_ contacts to\_be postpon\_d long enough for keys to be transmitted by some physical m}\\
+C_9=& \texttt{ \_ans. The cos\_ and delay\_imposed by this key distribution problem is a major barrier}\\
+C_{10}=& \texttt{ \_to the trans\_er of busi\_ess communications to large teleprocessing networks.       }
+\end{align*}
+
+This reveals enough of the plaintext to infer the characters that we weren't able to decrypt because of multiple possible $p_i$s (represented by underscores). Thus, the original messages were:
+
+\begin{align*}
+C_1=& \texttt{The best known cryptographic problem is that of privacy: preventing the unauthorized}\\
+C_2=& \texttt{ extraction of information from communications over an insecure channel. In order to}\\
+C_3=& \texttt{ use cryptography to insure privacy, however, it is currently necessary for the comm}\\
+C_4=& \texttt{unicating parties to share a key which is known to no one else. This is done by send}\\
+C_5=& \texttt{ing the key in advance over some secure channel such a private courier or registered}\\
+C_6=& \texttt{email. A private conversation between two people with no prior acquaintance is a com}\\
+C_7=& \texttt{mon occurrence in business, however, and it is unrealistic to expect initial busines}\\
+C_8=& \texttt{s contacts to be postponed long enough for keys to be transmitted by some physical m}\\
+C_9=& \texttt{eans. The cost and delay imposed by this key distribution problem is a major barrier}\\
+C_{10}=& \texttt{ to the transfer of business communications to large teleprocessing networks.       }
+\end{align*}
+
+The code is available \href{https://github.com/qandrew/6.857/blob/master/Pset\%201/decrypt_tenciphs.py}{\textbf{here}}.
+
+\answer{1-4 - WhatsApp Retransmission Vulnerability}
+
+\textbf{(a)} Let us assume that in both apps, Alice is attempting to send a message to Bob, potentially through a server $S$. In \textit{end to end encryption} (E2EE), only the communicating parties, Alice and Bob, know the encryption keys. In App A, the server used to transmit Alice's message to Bob may also possess the encryption key Alice uses to encrypt her message $m$. If Eve were to attack the server, then in app $B$ with E2EE, the server would only contain encrypted messages without any knowledge of the encryption/decrpytion key; however in app $A$ the server could have the knowledge of the encryption/decryption key, thus potentially compromising security.
+\\
+\\ \textbf{(b)} The blog post sheds light on the fact that through social engineering, it is possible to pretend to be the recipient of the message and thus compromise the whole security scheme. Because a WhatsApp account uses the phone number to verify identity, if one can successfully pretend to own the phone number, then one can access the WhatsApp account, and read all messages. Let Bob's account be Eve's target -she wishes to read his messages.
+\\ \textit{Phone companies} easily have control on phone numbers, so they can easily access Bob's accounts. Eve can install WhatsApp on her phone. When WhatsApp sends a message to Bob's phone number to confirm the account's identity, Eve can route that text message to her own phone, and attain access to Bob's account. If Bob has linked his phone number to a third party organization such as Google Voice where his text messages can be routed through Google's servers, then if Eve can access Google Voice's servers, she can also reroute Bob's text messages to her own phone and thus access the messages.
+\\ As the \textit{WhatsApp} database contains all users' accounts and their associated phone numbers, if Eve were to change the phone number associated with Bob's account to her phone number, then Eve could access Bob's account.
+\\ Assuming the \textit{Law Enforcement} does not have direct access to information, they would not be able to access Bob's WhatsApp account through technical means. However, the government can issue an order enforcing the access of Bob's WhatsApp account.
+\\ \textit{Friends \& People around Bob} who have the means to physically access his phone can see his text messages. If Bob lends his phone a friend for his friend to make a phone call or play a game, his friend now has access to the phone and the WhatsApp account. 
+\\
+\\ \textbf{(c)} Two technically savvy users could negotiate their own encryption scheme on top of WhatsApp's messaging, such that an attacker would not be able to decrypt the messages even if he exploited the retransmission vulnerability. This second level of indirection could also be done by exchanging links to third-party encryption software over WhatsApp, so no message information is transmitted over WhatsApp itself.
+
+\\ 
+\\ \textbf{(d)} WhatsApp's implementation will transmit the offline message without relying on a confirmation from the sender Alice. For example, if Alice's phone broke after she sent the offline message, Bob would not receive Alice's message until after Alice got a new phone and resent the message. As many messages are sent to old keys - potentially through people changing phones or phone numbers - WhatsApp's current implementation guarantees that messages will be delivered to the new location (although potentially to the wrong people). Thus, this security flaw may actuall be seen as a useful feature in some circumstances. 
+\\
+\\ \textbf{(e)} By publicizing a flaw, more people will be aware of the vulnerability, which also means that more malicious people will attempt to exploit it. A prudent reporter would want to ensure that the vulnerability is patched before spreading information about its existence. Also, a reporter would not want to cause unnecessary fear in an otherwise secure piece of software, which would push users to perhaps less secure solutions if the reporter does not provide better alternatives. 
+\\
+\\In terms of revising the article, we would consider including much more information geared towards non-security-minded readers. The article does not immediately make clear where exactly the vulnerability exists or provide quantitative information on how serious it is, or provide the perspectives of the designers of the software. This leads to a skewed public reaction and potentially more danger to users.
+
+Also, diagrams or explanations on how end-to-end encryption works would be helpful in illustrating security to the lay reader. 
+
+\end{document}
