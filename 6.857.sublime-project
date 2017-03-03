@@ -3,6 +3,9 @@
 	[
 		{
 			"path": "."
+		},
+		{
+			"path": "/home/andrew/Documents/Github/6.824"
 		}
 	]
 }

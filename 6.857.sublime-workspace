@@ -4,6 +4,34 @@
 		"selected_items":
 		[
 			[
+				"ciph",
+				"ciphs"
+			],
+			[
+				"cip",
+				"ciphsByCol"
+			],
+			[
+				"poten",
+				"potential_pad"
+			],
+			[
+				"ci",
+				"ciphsByCol"
+			],
+			[
+				"ret",
+				"returnType"
+			],
+			[
+				"c1",
+				"c1Array"
+			],
+			[
+				"pot",
+				"potential_pad"
+			],
+			[
 				"mzp",
 				"mpz_clear"
 			],
@@ -356,10 +384,6 @@
 				"tempNum1"
 			],
 			[
-				"ret",
-				"return"
-			],
-			[
 				"mpz_pow",
 				"mpz_powm"
 			],
@@ -490,40 +514,25 @@
 			[
 				"mpz_sub",
 				"mpz_sub_ui"
-			],
-			[
-				"Fp12sp",
-				"Fp12_SparseMulProj"
-			],
-			[
-				"Fp2su",
-				"Fp2_Sub"
-			],
-			[
-				"tem",
-				"tempN"
-			],
-			[
-				"x0s",
-				"x0squared"
-			],
-			[
-				"temp",
-				"tempx1"
-			],
-			[
-				"F",
-				"FInv"
 			]
 		]
 	},
 	"buffers":
 	[
 		{
-			"file": "Pset 1/p1-3b.py",
+			"file": "Pset 1/p3d backup.py",
 			"settings":
 			{
-				"buffer_size": 2158,
+				"buffer_size": 4525,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Pset 1/decrypt_tenciphs.py",
+			"settings":
+			{
+				"buffer_size": 2513,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -534,14 +543,6 @@
 			{
 				"buffer_size": 1680,
 				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/home/andrew/Dropbox/MIT/2016F/UROP/pairing_python/C/pairing_examples/simple_pairing/massif_prof.txt",
-			"settings":
-			{
-				"buffer_size": 591597,
 				"line_ending": "Unix"
 			}
 		},
@@ -608,6 +609,7 @@
 	],
 	"file_history":
 	[
+		"/home/andrew/Dropbox/MIT/2016F/UROP/pairing_python/C/pairing_examples/simple_pairing/massif_prof.txt",
 		"/home/andrew/pairing/C/pairing_lib/PairingFunctions.c",
 		"/home/andrew/pairing/C/pairing_lib/MillerLoop.c",
 		"/home/andrew/pairing/Python/ToweredArithmetic.py",
@@ -892,24 +894,24 @@
 	"groups":
 	[
 		{
-			"selected": 2,
+			"selected": 1,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "Pset 1/p1-3b.py",
+					"file": "Pset 1/p3d backup.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2158,
+						"buffer_size": 4525,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2153,
-								2153
+								4000,
+								4000
 							]
 						],
 						"settings":
@@ -918,14 +920,43 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 513.0,
+						"translation.y": 2416.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
 					"buffer": 1,
+					"file": "Pset 1/decrypt_tenciphs.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2513,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								63,
+								63
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": -0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
 					"file": "Pset 1/p1-3a.py",
 					"semi_transient": false,
 					"settings":
@@ -937,8 +968,8 @@
 						"selection":
 						[
 							[
-								759,
-								759
+								737,
+								737
 							]
 						],
 						"settings":
@@ -948,38 +979,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 285.0,
+						"translation.y": 520.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "/home/andrew/Dropbox/MIT/2016F/UROP/pairing_python/C/pairing_examples/simple_pairing/massif_prof.txt",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 591597,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								4031,
-								4046
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
@@ -995,8 +998,8 @@
 						"selection":
 						[
 							[
-								1262,
-								1262
+								1008,
+								1008
 							]
 						],
 						"settings":
@@ -1008,7 +1011,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 2,
 					"type": "text"
 				}
 			]
@@ -1047,7 +1050,7 @@
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 206.0
+		"height": 474.0
 	},
 	"output.find_results":
 	{
@@ -1077,7 +1080,7 @@
 		[
 			[
 				"",
-				"~/pairing/UROP.sublime-project"
+				"~/Documents/Github/6.824/6.824.sublime-project"
 			]
 		],
 		"width": 380.0
@@ -1098,7 +1101,7 @@
 	"show_minimap": true,
 	"show_open_files": true,
 	"show_tabs": true,
-	"side_bar_visible": false,
+	"side_bar_visible": true,
 	"side_bar_width": 179.0,
 	"status_bar_visible": true,
 	"template_settings":
