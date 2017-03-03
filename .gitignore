@@ -1,0 +1,6 @@
+"6.857.sublime-workspace"
+6.857.sublime-project
+
+*.sublime-workspace
+
+go/bin/

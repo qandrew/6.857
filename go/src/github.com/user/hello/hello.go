@@ -7,6 +7,8 @@ import (
   "io/ioutil"
   "os"
   "encoding/json"
+  "encoding/hex"
+  "github.com/lhecker/argon2"
 )
 
 const NODE_NEXT = "http://6857coin.csail.mit.edu:8080/next"
@@ -22,11 +24,11 @@ type Next_info struct{
   Version int
 }
 type Block struct{
-  version string
-  root string // hash
-  parentid string
-  timestamp int
-  difficulty int
+  Version int
+  Root string // hash
+  Parentid string
+  Timestamp int
+  Difficulty int
 }
 
 func main() {
@@ -39,9 +41,29 @@ func main() {
   //   fmt.Println("error")
   // }
 
-  // hu := Next_info{}
-  hu :=get_next()
-  fmt.Println("hu",hu)
+  next :=get_next()
+  block := make_block(next,BLOCK_CONTENT)
+  fmt.Println("solving block")
+  fmt.Println(block)
+  // solve_block(&block)
+  cfg := argon2.DefaultConfig()
+
+  // var cfg Config
+  // cfg.HashLength = 32
+  // cfg.SaltLength = 8
+  // cfg.TimeCost = 3
+  // cfg.MemoryCost = 4096 // 1 << 12
+  // cfg.Parallelism = 1
+  // cfg.Mode = Mode(C.Argon2_id) // argon2.low_level.Type.D
+  // cfg.Version = Version19
+
+
+  var password = []byte("password")
+  raw, _ := cfg.Hash(password, []byte("somesalt"))
+  raw, _ = argon2.Decode(password)
+  // fmt.Println(raw)
+  fmt.Printf("Hash:        %s\n", hex.EncodeToString(raw.Hash))
+
 
   // req, err := http.NewRequest("POST", NODE_ADD, nil)
 
@@ -76,21 +98,22 @@ func get_next() Next_info {
       panic(err.Error())
   }
   fmt.Printf("Results: %v\n", data)
-  // out.parentid = data.parentid
-
-
   return data
 }
 
-func make_block(next_info map[string]string, contents string) map[string]string{
+func make_block(next_info Next_info, contents string) Block{
   fmt.Println("yay")
-  block := make(map[string]string) 
-  block["version"] = next_info["version"]
+  var block Block
+  block.Version = next_info.Version
   // block["root"] = hash_to_hex(contents)
-  block["parentid"] = next_info["parentid"]
-  block["timestamp"] = "time" // in some format
-  block["difficulty"] = next_info["difficulty"]
+  block.Parentid = next_info.Parentid
+  // block["timestamp"] = "time" // in some format
+  block.Difficulty = next_info.Difficulty
   return block
 } 
+
+// func solve_block(*block Block) {
+
+// }
 
 // func

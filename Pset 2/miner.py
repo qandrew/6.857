@@ -6,6 +6,8 @@ from struct import pack, unpack
 import random
 import requests
 
+# from multiprocessing import Pool
+
 NODE_URL = "http://6857coin.csail.mit.edu:8080"
 
 """
@@ -34,7 +36,19 @@ def solve_block(b):
     d = b["difficulty"]
     b["nonce"] = rand_nonce(b["difficulty"])
     print 'd', d
-    while True:
+
+    # PARALLEL = 10
+    # pool = Pool()
+    # results = []
+    
+
+    # while True:
+    #     for i in xrange()
+    #     results = []
+
+
+    a = True
+    while a:
         # iters +=1
         # if iters % 100 == 0:
         #     print "iters", iters
@@ -44,10 +58,11 @@ def solve_block(b):
 
         
         hVal = int(h,16)
-        isZero = hVal >> len(h)*4 - d
+        isZero = hVal >> (len(h)*4 - d)
         if isZero == 0:
             print 'got b', b
             # return b
+            a = False
             break
 
         # print h
@@ -65,7 +80,9 @@ def main():
     We will construct a block dictionary and pass this around to solving and
     submission functions.
     """
-    block_contents = "Andrew Xia, Emily Mu, Akaki"
+    block_contents = "axia, emilymu, margvela"
+    # block_contents = "HUDING ENTERPRISES"
+    print block_contents
     while True:
         #   Next block's parent, version, difficulty
         next_header = get_next()
