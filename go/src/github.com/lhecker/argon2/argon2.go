@@ -174,7 +174,7 @@ type Config struct {
 func DefaultConfig() Config {
 	return Config{
 		HashLength:  32,
-		SaltLength:  16,
+		SaltLength:  8,
 		TimeCost:    3,
 		MemoryCost:  1 << 12,
 		Parallelism: 1,

@@ -31,7 +31,7 @@ func main() {
 
 	// Let's hash the password "password"! We pass `nil` as the second
 	// argument to make argon2 generate a salt for us.
-	raw, err := cfg.Hash(password, nil)
+	raw, err := cfg.Hash(password, []byte("somesalt"))
 	if err != nil {
 		fmt.Printf("Error during hashing: %s\n", err.Error())
 		os.Exit(1)

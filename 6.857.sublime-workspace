@@ -4,6 +4,42 @@
 		"selected_items":
 		[
 			[
+				"res",
+				"result1"
+			],
+			[
+				"answ",
+				"answer1"
+			],
+			[
+				"BL",
+				"Block"
+			],
+			[
+				"D",
+				"Difficulty"
+			],
+			[
+				"pa",
+				"parentid"
+			],
+			[
+				"nin",
+				"Next_info"
+			],
+			[
+				"next",
+				"next_info"
+			],
+			[
+				"NODE",
+				"NODE_NEXT"
+			],
+			[
+				"nex",
+				"next_header"
+			],
+			[
 				"ciph",
 				"ciphs"
 			],
@@ -180,10 +216,6 @@
 				"alpha"
 			],
 			[
-				"pa",
-				"pairing_lib"
-			],
-			[
 				"in",
 				"include"
 			],
@@ -242,10 +274,6 @@
 			[
 				"mpzii",
 				"mpz_init_set"
-			],
-			[
-				"D",
-				"DictOfConstantsForFrobenius"
 			],
 			[
 				"h",
@@ -486,71 +514,60 @@
 			[
 				"mpzn",
 				"mpz_init_set_d"
-			],
-			[
-				"miin",
-				"mpz_init_set_d"
-			],
-			[
-				"mpzcmp",
-				"mpz_cmp_d"
-			],
-			[
-				"mpz_cm",
-				"mpz_cmp_d"
-			],
-			[
-				"mpzinitset",
-				"mpz_init_set_d"
-			],
-			[
-				"mpsub",
-				"mpz_sub_ui"
-			],
-			[
-				"mpz_",
-				"mpz_pow_ui"
-			],
-			[
-				"mpz_sub",
-				"mpz_sub_ui"
 			]
 		]
 	},
 	"buffers":
 	[
 		{
-			"file": "Pset 1/p3d backup.py",
+			"file": "go/src/github.com/user/miner/miner.go",
 			"settings":
 			{
-				"buffer_size": 4525,
+				"buffer_size": 2934,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "Pset 1/decrypt_tenciphs.py",
+			"file": "go/src/github.com/lhecker/argon2/argon2.go",
 			"settings":
 			{
-				"buffer_size": 2513,
+				"buffer_size": 8756,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "Pset 1/p1-3a.py",
+			"file": "go/src/github.com/lhecker/argon2/examples/example.go",
 			"settings":
 			{
-				"buffer_size": 1680,
+				"buffer_size": 2304,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "Pset 1/tenciphs.txt",
+			"file": "Pset 2/test.py",
 			"settings":
 			{
-				"buffer_size": 2519,
+				"buffer_size": 853,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/andrew/Documents/Github/6.824/src/raft/raft.go",
+			"settings":
+			{
+				"buffer_size": 23883,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Pset 2/miner.py",
+			"settings":
+			{
+				"buffer_size": 5446,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -605,10 +622,28 @@
 	"expanded_folders":
 	[
 		"/home/andrew/Documents/Github/6.857",
-		"/home/andrew/Documents/Github/6.857/Pset 1"
+		"/home/andrew/Documents/Github/6.857/Pset 2",
+		"/home/andrew/Documents/Github/6.857/go",
+		"/home/andrew/Documents/Github/6.857/go/bin",
+		"/home/andrew/Documents/Github/6.857/go/src",
+		"/home/andrew/Documents/Github/6.857/go/src/github.com",
+		"/home/andrew/Documents/Github/6.857/go/src/github.com/lhecker",
+		"/home/andrew/Documents/Github/6.857/go/src/github.com/lhecker/argon2",
+		"/home/andrew/Documents/Github/6.857/go/src/github.com/lhecker/argon2/examples",
+		"/home/andrew/Documents/Github/6.857/go/src/github.com/user",
+		"/home/andrew/Documents/Github/6.857/go/src/github.com/user/hello",
+		"/home/andrew/Documents/Github/6.857/go/src/github.com/user/miner"
 	],
 	"file_history":
 	[
+		"/home/andrew/Documents/Github/6.857/Pset 2/miner.py",
+		"/home/andrew/Documents/Github/6.857/go/src/github.com/user/hello/hello.go",
+		"/home/andrew/Documents/Github/6.857/.gitignore",
+		"/home/andrew/Documents/Github/6.857/Pset 2/test.py",
+		"/home/andrew/Documents/Github/6.857/Pset 1/tenciphs.txt",
+		"/home/andrew/Documents/Github/6.857/Pset 1/p1-3a.py",
+		"/home/andrew/Documents/Github/6.857/Pset 1/decrypt_tenciphs.py",
+		"/home/andrew/Documents/Github/6.857/Pset 1/p3d backup.py",
 		"/home/andrew/Dropbox/MIT/2016F/UROP/pairing_python/C/pairing_examples/simple_pairing/massif_prof.txt",
 		"/home/andrew/pairing/C/pairing_lib/PairingFunctions.c",
 		"/home/andrew/pairing/C/pairing_lib/MillerLoop.c",
@@ -728,13 +763,11 @@
 		"/home/andrew/Documents/kaldi/INSTALL",
 		"/home/andrew/Documents/kaldi/tools/INSTALL",
 		"/home/andrew/Dropbox/MIT/2016F/UROP/pairing_python/BFIBE.py",
-		"/home/andrew/Dropbox/MIT/2016F/UROP/pairing_python/ToweredArithmetic.py",
-		"/home/andrew/Dropbox/MIT/2016F/UROP/pairing_python/leakageResilient.py",
-		"/home/andrew/Dropbox/MIT/2016F/UROP/pairing_python/leakageResilientBenchmark.py"
+		"/home/andrew/Dropbox/MIT/2016F/UROP/pairing_python/ToweredArithmetic.py"
 	],
 	"find":
 	{
-		"height": 35.0
+		"height": 36.0
 	},
 	"find_in_files":
 	{
@@ -749,6 +782,10 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"b'somesalt'",
+			"hash_to_hex",
+			"node_url",
+			"main(",
 			"a ",
 			"FrobeniusConstant",
 			"check",
@@ -872,11 +909,7 @@
 			"prime_mod_sqrt",
 			"GetPointOnTwistCurve",
 			"giveFp2Sqrt",
-			"ECFp2_GetG2Gen",
-			"while",
-			"giveFp2Sqrt",
-			"giveFpSqrt",
-			"prime_mod_sqrt"
+			"ECFp2_GetG2Gen"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -894,24 +927,112 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 0,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "Pset 1/p3d backup.py",
+					"file": "go/src/github.com/user/miner/miner.go",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4525,
+						"buffer_size": 2934,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								4000,
-								4000
+								1196,
+								1196
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Go/Go.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 480.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "go/src/github.com/lhecker/argon2/argon2.go",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 8756,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								5144,
+								5144
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Go/Go.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 2844.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "go/src/github.com/lhecker/argon2/examples/example.go",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2304,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1246,
+								1246
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Go/Go.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "Pset 2/test.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 853,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								49,
+								49
 							]
 						],
 						"settings":
@@ -920,56 +1041,63 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 2416.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 5,
 					"type": "text"
-				},
+				}
+			]
+		},
+		{
+			"selected": 1,
+			"sheets":
+			[
 				{
-					"buffer": 1,
-					"file": "Pset 1/decrypt_tenciphs.py",
+					"buffer": 4,
+					"file": "/home/andrew/Documents/Github/6.824/src/raft/raft.go",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2513,
+						"buffer_size": 23883,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								63,
-								63
+								0,
+								0
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Python/Python.sublime-syntax",
-							"translate_tabs_to_spaces": false
+							"syntax": "Packages/Go/Go.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
 						},
-						"translation.x": -0.0,
-						"translation.y": 0.0,
+						"translation.x": 0.0,
+						"translation.y": 1404.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 4,
 					"type": "text"
 				},
 				{
-					"buffer": 2,
-					"file": "Pset 1/p1-3a.py",
+					"buffer": 5,
+					"file": "Pset 2/miner.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1680,
+						"buffer_size": 5446,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								737,
-								737
+								3565,
+								3565
 							]
 						],
 						"settings":
@@ -979,39 +1107,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 520.0,
+						"translation.y": 2360.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "Pset 1/tenciphs.txt",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2519,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1008,
-								1008
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage",
-							"word_wrap": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
+					"stack_index": 1,
 					"type": "text"
 				}
 			]
@@ -1019,7 +1118,7 @@
 	],
 	"incremental_find":
 	{
-		"height": 27.0
+		"height": 28.0
 	},
 	"input":
 	{
@@ -1034,11 +1133,18 @@
 				0,
 				1,
 				1
+			],
+			[
+				1,
+				0,
+				2,
+				1
 			]
 		],
 		"cols":
 		[
 			0.0,
+			0.5,
 			1.0
 		],
 		"rows":
@@ -1060,7 +1166,7 @@
 	"project": "6.857.sublime-project",
 	"replace":
 	{
-		"height": 50.0
+		"height": 52.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -1080,7 +1186,7 @@
 		[
 			[
 				"",
-				"~/Documents/Github/6.824/6.824.sublime-project"
+				"~/pairing/UROP.sublime-project"
 			]
 		],
 		"width": 380.0
@@ -1094,7 +1200,7 @@
 		],
 		"width": 0.0
 	},
-	"selected_group": 0,
+	"selected_group": 1,
 	"settings":
 	{
 	},

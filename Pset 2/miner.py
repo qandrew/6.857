@@ -145,9 +145,18 @@ def hash_block_to_hex(b):
 def hash_to_hex(data):
     """Returns the hex-encoded hash of a byte string."""
     raw = argon2.low_level.hash_secret_raw(
-      data, b'somesalt',
+      data, b"somesalt",
       3, 1 << 12, 1, 32, argon2.low_level.Type.D
     )
+    # print raw, len(raw)
+    # d = ''
+    # for c in raw:
+    #     d.join('{:02x}'.format(ord(c)))
+    #     print d
+    # print "---"
+    # print d
+    # for i in xrange(len(raw)):
+    #     print i, raw[i]
     return ''.join('{:02x}'.format(ord(c)) for c in raw)
 
 def make_block(next_info, contents):
@@ -173,4 +182,5 @@ def rand_nonce(diff):
     return random.randint(0,2**diff-1)
 
 if __name__ == "__main__":
-    main()
+    # main()
+    print hash_to_hex("a")
