@@ -1,0 +1,107 @@
+%
+% 6.857 homework template
+%
+% NOTE:
+% Be sure to define your team members with the \team command
+% Be sure to define the problem set with the \ps command
+% Be sure to use the \answer command for each of your answers 
+\documentclass[11pt]{article}
+
+\newcommand{\team}{ Emily Mu \\ Akaki Margvelashvili \\ Andrew Xia }
+\newcommand{\ps}{ Problem Set 2 }
+
+%\pagestyle{headings}
+\usepackage[dvips]{graphics,color}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{latexsym}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\setlength{\parskip}{1pc}
+\setlength{\parindent}{0pt}
+\setlength{\topmargin}{-3pc}
+\setlength{\textheight}{9.5in}
+\setlength{\oddsidemargin}{0pc}
+\setlength{\evensidemargin}{0pc}
+\setlength{\textwidth}{6.5in}
+
+\newcommand{\answer}[1]{
+\newpage
+\noindent
+\framebox{
+	\vbox{
+		6.857 Homework \hfill {\bf \ps} \hfill \# #1  \\ 
+		\team \hfill Mar 13, 2017
+	}
+}
+\bigskip
+
+}
+
+
+\begin{document}
+
+\answer{2-1 - What if Bitcoin had used SHA-1}
+
+On February 23, 2017, Google announced that it had been successful in generating collisions for SHA-1, once considered a collision-resistant hash function. This attack was based off of a theoretical technique developed by Marc Stevens and has shown to be effective and 100,000 times faster than a brute force attack. In the Bitcoin architecture, SHA-256 hashing is used within the Merkle Trees of transaction blocks, in the proof-of-work mining protocol, for user signatures, and as part of the Pay-to-Public-Key-Hash and Pay-to-Script-Hash scripts. In this question, we will attempt to outline the potential consequences to Bitcoin security if Bitcoin had used SHA-1 hashing instead of SHA-256 hashing for these functions.
+
+Collisions, introduced by having the SHA-1 hash function for Bitcoin, can involve attacks from adversary on the main hash, signature scheme or address hash. Although breaking the address hash does not have a huge impact as addresses are not the main guarantee of the user's privacy, attacking on the main hash or signature scheme can even result in the coins being stolen.\\
+Here are some of the scenarios that invovle breaking the Bitcoin because of having the feasible collisions in the hash function, resulting in a stolen or destroyed coins, repudiated transactions, changed payments, etc.
+\begin{itemize}
+    \item An adversary can possibly create 2 transactions, "pay 0.001 Bitcoin to A" and "pay 1000 Bitcoin to B" with the same main hash value (because of existing feasible collisions in the main hash). Then he can ask A for a signature on the first transaction but actually transfer the second transaction. This way, since signatures are done on the messages hashed with the main hash function, an adversary can destroy or even steal the coins.
+    \item It is possible to create 2 different transactions with the same hash value to split the network and spend the same coins 2 times while the receivers on the both sides will think that the Bitcoins they are getting paid is valid.
+    \item When a new block arrives, an adversary with sufficient network control can transmit a different malicious block having a same hash value as the new valid block has. This way, miners will reject both blocks and reverse the transactions new valid block contained.
+    \item An adversary can cause an overwhelming amount of alerts by creating the pairs of public keys $P_{1}$ and $P_{2}$ that result in the same value when hashed by the main hashing function. By forging their signatures, an adversary can trick the system into thinking that 2 users are trying to use the same coins - that will issue an alert. It is possible to repeat the process large number of times to issue DDoS-like attack to the system with overwhelming wrong alerts.
+\end{itemize}
+
+It is important to note that for now only limited amount of collision have been found in SHA-1 and it is extremely hard to find 2 meaningful messages that hash to the same value and give you some kind of power to trick the Bitcoin. After first collisions are found and released, it usually takes some time arbitrary collisions to become feasible to compute. Therefore, even if Bitcoin used SHA-1 instead of SHA-256, engineers would probably have enough time to migrate to more secure hash function until the harm would have been done.
+
+
+\answer{2-2 - 857coin}
+\begin{enumerate}[label=(\alph*)]
+
+\item We were able to get our block chain in the mainchain through the signature \textit{Andrew Xia, Emily Mu, Akaki}. After realizing that we should have signed our names by our kerberoses, a block on the sidechain under \textit{axia, emilymu, margvela} has also been recorded.
+
+% \begin{figure}[!h]
+% \centering
+% \includegraphics[width=0.8\textwidth]{main.png}
+% \end{figure}
+
+\item Parallelism was key to our strategy in appending our block to the main chain. We were able to append to the main chain at a difficulty of 19. We simply compared whether  \texttt{h = hash\_block\_to\_hex(b)} began with \texttt{d} zeros in its bit representation, and incremented our nonce \texttt{b} if it wasn't the case. 
+
+In addition, we ran \texttt{miner.py} across multiple terminals on multiple computers which was a naive method of running concurrent miners. The four instances of running \texttt{miner.py} also searched through different numerical ranges of nonces, thus letting us take advantage of parallelism. This method ended up allowing us to successfully mine a block in a short enough amount of time to append to the main chain. Our python code can be found \textbf{\href{https://github.com/qandrew/6.857/blob/master/Pset\%202/miner.py}{here}}.
+
+In terms of further optimization, we are also working on a golang implementation of the miner. Go is a much faster language than python since python is dynamically typed and interpreted, while go is compiled and statically typed. By using channels in go to parallelize the hashing process, we would be able to achiever a faster mining speed than our naive implementation in python.
+ 
+\end{enumerate}
+
+\answer{2-3 - Stateless hash-based signatures}
+
+\begin{enumerate}[label=(\alph*)]
+\item When Alice signs $b = 0$, she reveals $p$ and $h(q)$ to a potential adversary. However, in order for the adversary to sign $b = 1$, they must reveal $h(p)$ and $q$. Note that $h(p)$ can easily be computed by using the public hash function. However, by the definition of a one-way hash function, even though the adversary knows $h(q)$ from Alice's previous signature, the adversary cannot feasibly find $q'$ (potentially equivalent to q) such that $h(q') = h(q)$. \\
+
+\item Notice that since the scheme is stateful and that each $x_i$ is determined independently with randomly generated $p_i$ and $q_i$, the $p_i$ and $p_j$ (and $q_i$ and $q_j$ for any $i \neq j$ have no relation to one another). Thus, even though the adversary may know the values for a signature for state $t$, the adversary still has no information about $p_{t'}$ or $q_{t'}$ for any other state $t'$, since the hash function is one-way and collision resistant. Consequently, the adversary cannot produce a valid signature for any other state.\\
+
+\item A Version III signature consists of 256 individual 1-bit signatures. This is because this version must sign each bit of $h(m)$ individually and $h(m)$ is 256-bit long. However, note that we only need $t$ for the first signature, which can be represented in 8 bytes. Thus, each signature consists of $(p_s, h(q_s))$ or $(h(p_s), q_s)$ where $s$ represents the bit being signed. Since $p_s, q_s, h(p_s), h(q_s)$ are each 256-bit long, each signature for each bit is 512-bit or 64-byte. Since we have 256 bits to sign for the whole message, the total number of bytes for the total signature will be $64*256+8 = 16392$ bytes long. \\
+
+\item In a Merkel tree, in order to authenticate any leaf $x_i$, the signer must also provide the sibling of $x_i$ and the siblings of any ancestor of $x_i$ all the way to the root in order to calculate the root value. Any leaf node $x_i$ has 42 sibling and ancestors of siblings of size 256-bit. Note that since the signature already provides a block of 256 $x_i$ leaves, we can compress the proof after $\log(256) = 8$ layers due to the sharing of ancestors. Thus, $42 - 8 = 34$ ancestors need to be provided in addition to the signature in Version III. As each ancestor is 256 bits long with is 32 bytes, the total size of a Version IV signature will be $16392 + 32*34 = 17480$ bytes.\\
+
+\item Note that to provide the signature of each leaf, this takes $512*r$ bits. In order to show all $r$ leaves are in the tree, we must provide $k$ values for the sibling and ancestors of siblings of each leaf, and each value is $256$ bits long. Since the $r$ leaves are pseudo-random, in the worst case scenario, where the $r$ leaves do not share ancestors until the Root's $\log(r)$ level children, we'd have to share $(k-\log(r))*r)$ ancestors, since we are bound to get common ancestors when we are near the root of the tree. Thus, we must provide $(k-\log(r))*r)*256$ bits in order to authenticate each leaf. 
+
+Thus, the total number of bits we need will be $512*r + (k-\log(r))*r)*256$. Plugging in $k = 42$ and $r = 16$, we get $163840$ bits or $20480$ bytes needed for a Version V signature, which is more than the Version IV signature.
+
+%Thus, the total number of bits we need will be $512*r + (k*r)*256$. Plugging in $k = 42$ and $r = 16$, we get $180224$ bits or $22528$ bytes needed for a Version V signature, which is more than the Version IV signature. \\
+
+\item Let the leaves determined by the new signature be $x_1, ... x_{16}$. Let the set of leaves already used by previous signatures be $X$. Note that $X \le 16s$. Since we assume pseudo-randomness, we assume that $x_1, ... x_{16}$ are generated independently. Thus, the probability that all leaves have been used before will be 
+
+$$\prod_{i = 1}^{16}Pr(x_i \in X) = (Pr(x_1 \in X))^{16} \le (\frac{16s}{2^k})^{16}$$
+
+Note that if $k = 42$, unless $s \ge 2^{30}$, then the probability that all leaves have been used before will still be less than $\frac{1}{2^{128}}$. \\
+
+\item Given s constrained as above, it is probable that at least one of the new leaves $x_1, ... x_{16}$ will not have been used by a previous message. Thus, an adversary will have no information about the $p$ and $q$ values that correspond to the leaf that has not been used before. Consequently, the adversary will not be able to forge a signature for the given message. \\
+
+\end{enumerate}
+
+\end{document}
