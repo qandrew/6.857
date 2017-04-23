@@ -5,7 +5,7 @@
 \usepackage{float}
 \usepackage{enumerate}
 \usepackage{subcaption}
-
+\usepackage{hyperref}
 \usepackage{graphicx}
 \usepackage{wrapfig}
 
@@ -19,9 +19,9 @@
   \begin{center}
   \framebox{
     \vbox{
-      \hbox to 6.00in { {6.867 Machine Learning Final Project} \hfill #2 }
+      \hbox to 6.00in { {6.857 Network Security} \hfill #2 }
       \vspace{4mm}
-      \hbox to 6.00in { {\Large \hfill #5  \hfill} }
+      \hbox to 6.00in { { \hfill #5  \hfill} }
       \vspace{2mm}
       \hbox to 6.00in { {\em #3 \hfill #4} }
     }
@@ -53,24 +53,78 @@
 \marginparwidth 0.5in
 \textwidth 6.5in
 
-\parindent 24pt
-\parskip 1.5ex
+%\parindent 24pt
 
 \begin{document}
 
-\lecture{\textbf{6.857 Project Proposal: Bitcoin Lightning Network} }{February $28^{\text{th}}$, 2017}{Prof. Rivest, Kalal}{Gina Yuan, Andrew Xia, Jamie Bloxham, Justine Jang}
+\lecture{\textbf{Probabilistic Payment Methods on the Bitcoin Lightning Network} }{\today}{Prof. Rivest, Kalal}{Gina Yuan, Andrew Xia, Jamie Bloxham, Justine Jang}
 
 %\begin{center}\includegraphics[width=140mm]{fig1.png}\end{center}
 
-\section{Abstract}
+\section{Introduction}
+The Bitcoin Lightning Network is a research project currently ongoing at the Digital Currency Initiative as part of the MIT Media Lab. The Lightning network\cite{PAPER} is a set of nodes linked by 2-party payment channels built from Bitcoin smart contracts. The software is currently being built out and initially tested on the Bitcoin Testnet\cite{LIT}. 
 
-The Bitcoin Lightning Network is a research project currently ongoing at the Digital Currency Initiative as part of the MIT Media Lab. The Lightning network is a set of nodes linked by 2-party payment channels built from Bitcoin smart contracts. The software is currently being built out and initially tested on the Bitcoin Testnet\cite{LIT}. 
+For this project, we will focus on implementing probabilistic payment systems on the Bitcoin Lightning Network. Beyond enabling trivial gambling-esque systems, probabilistic payments more notably present an opportunity to emulate payments of amounts below one satoshi, the current minimum for Bitcoin.
 
-For this project, we wish to look for unknown or undocumented vulnerabilities in the software and specifications. Some previously mentioned potential vulnerabilities include novel cryptographic constructions, DoS-vulnerable communications, synchronization issues, key management, and database integrity issues. We may also look into side channel attacks and flaws in the user interface that may compromise the security of the system.
+Provided we have time, we may also look into side channel attacks and flaws in the user interface and codebase implementation that may compromise the security of the system.
+
+\section{About: Bitcoin Lightning Networks} %Gina
+After a transaction is broadcast to the regular Bitcoin network, it must be added to the blockchain before it is secure. In the Bitcoin Lightning Network, bi-directional payment channels allow two parties to securely make multiple payments while only committing a few transactions to the blockchain \cite{WIKI}. Creating more secure off-chain transactions can greatly reduce the blockchain load, especially between users that make frequent payments to each other.
+
+Security in the Lightning Network is enforced with Hashed Timelock Contracts (HTLCs) \cite{WIKI}. HTLCs require the payee to either acknowledge receival of the payment within a certain time, or forfeit the payment entirely \cite{WIKI}. The Lightning Network allows payment channels to be closed cooperatively using multisignatures and HTLCs, or non-cooperatively \cite{SLIDES}.
+
+The construction of the Lightning Network importantly allows for sub-satoshi payments, where a satoshi is the smallest unit of Bitcoin currency. For example, Alice can effectively pay Bob 0.1 satoshi by paying him 1 satoshi 10\% of the time.
+
+\section{About: Probabilistic Payment Systems} %Justine
+
+The concept of a probabilistic payment system was first proposed in Peppercoin \cite{PEPPERCOIN}. It was originally concieved to make micropayments (payments on the order of $10$ cents) more efficient. If every micropayment has to go through a bank, merchants can lose a lot of money through credit card transaction fees. With the probabilistic payment system, each transaction has a small chance of paying a large amount instead of each transaction paying a small amount. So if a merchant ordinarily sells songs for $50$ cents each, then the system implemented with a probabilistic payment system may instead have each transaction pass with a $1/100$ chance, where the consumer pays $\$ 5$ if the transaction goes through. That way, expected cost for the consumer is the same, and the merchant saves the money from paying transaction fees for each transaction.
+
+Bitcoin Lightning is a method to make micropayments more efficient, because there is such a high threshold of work required to make any kind of payments on the Bitcoin blockchain. Using probabilistic payment systems would be a better way to extend the process to true micropayments. Even though this amount of work isn't necessary for a transaction made over Lightning, each transaction must still be a valid Bitcoin transaction, so the sizes can't be less than a satoshi. However, this problem can be solved  by the implementation of a probabilistic payment extension to Bitcoin Lightning. These micropayments can include access to non-free web pages or pay-per-view TV shows.
+
+\subsection{Attacks to Probabilistic Payment Systems}
+The Lightning Network presentation discusses several potential vulnerabilities and how they are addressed. Depending on our implementation, these vulnerabilities may be re-exposed:
+\begin{itemize}
+\item Non-cooperative payment closings: In theory, a malicious user Mallory may attempt to revoke payments made to another user Alice by committing an old state of the channel to the blockchain. However, when this happens, Alice should be able to commit the newer, current state of the channel to demonstrate that Mallory was committing fraud, thus reclaiming her funds. However, this system has not been fully verified, and demands further testing.
+\item Exhausted channels: An exhausted channel is one in which payments can no longer be made in one direction because, for example, one party has run out of funds. Once a channel is exahusted, the person controlling the exhausted side loses nothing from fraudently committing an old channel state.
+\end{itemize}
+
+Vulnerabilities specific to the probabilistic payment system will depend on the nature of our implementation.
+
+\section{Plan}
+
+In terms of implementing this project, our plan is shown in the following steps:
+
+\begin{enumerate}
+    \item \textit{Breed familiarity:} First, we plan on downloading the current Bitcoin Lightning Network available here\cite{LIT}. Per the recommendation of Thaddeus Dryja (Tadge), we will first test out simple transactions on the network, such as two-way money exchanges without exploring edge-case behaviors. 
+    
+    \item \textit{Design:} In this step, with an understanding of the codebase, we'll plan on designing the probabilistic payment network. We will meet with Tadje and work on a design involving the probabilistic variables, the databse configuration, the messaging, and the replicated state machine protocols. 
+    %Apply knowledge of the codebase to come up with a system design. Talk with Tadge for existing plans and feasability of the new plan.
+    
+    \item \textit{Implement:} Having a design plan for the probabilistic payment network, we will spend time implementing the project. We will code in golang, as the current Bitcoin Lightning Repository has been written in go. We will aim for both correctness and security in our implementation. 
+    
+    \item \textit{Evaluation:} In this step, we plan on taking an offensive approach to analyze the security and effectiveness of our probabilistic payment system. We will go through the attacks listed in section 3.1 to verify the correctness and security of our system.
+    
+    %Try to attack each other. Analyze the security of the probabilistic system in comparison to the original one. See if the new system could introduce any vulnerabilities.
+\end{enumerate}
+
+\noindent If these steps are completed, and there is remaining time, we will also try to explore other attacks on the system. For example, some previously mentioned potential vulnerabilities include novel cryptographic constructions, DoS-vulnerable communications, synchronization issues, key management, and database integrity issues. 
+
+%We are fortunate that this project is currently being undertaken by researchers here at MIT. We have the ability to meet with the researchers at the DCI as necessary to discuss the existing Lightning Network and its codebase. 
+
+%In the meantime, there are plenty of resources we can review to better understand the workings of the Lightning system, so that we will be prepared to tackle a comprehensive security analysis.
 
 \begin{thebibliography}{99}
 
 \bibitem{LIT} MIT Digital Currency Initiative, Lit, (2017), GitHub repository, https://github.com/mit-dci/lit
+
+\bibitem{PAPER} Poon, J., \& Dryja, T. (2016). The Bitcoin Lightning Network: Scalable Off-Chain Instant Payments. Retrieved March 1, 2017, from https://lightning.network/lightning-network-paper.pdf.
+
+\bibitem{WIKI} Bitcoin community. (2017). Lightning Network. Retrieved March 23, 2017, from https://en.bitcoin.it/wiki/Lightning\_Network.
+
+\bibitem{PEPPERCOIN} Rivest R.L. (2004) Peppercoin Micropayments. In: Juels A. (eds) Financial Cryptography. FC 2004. Lecture Notes in Computer Science, vol 3110. Springer, Berlin, Heidelberg
+
+\bibitem{SLIDES} Dryja, T. (2016). LN as a Directed Graph: Single-Funded Channel Topology. \text{http://diyhpl.us/bryan/papers2/bitcoin/Lightning\%20Network\%20as\%20Directed\%20Graph}\\
+\text{\%20Single-Funded\%20Channel\%20Topology\%20-\%20Tadge\%20Dryja\%20-\%202016-04-11.pdf}.
 
 \end{thebibliography}
 

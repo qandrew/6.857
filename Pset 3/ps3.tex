@@ -1,0 +1,240 @@
+%
+% 6.857 homework template
+%
+% NOTE:
+% Be sure to define your team members with the \team command
+% Be sure to define the problem set with the \ps command
+% Be sure to use the \answer command for each of your answers 
+\documentclass[11pt]{article}
+
+\newcommand{\team}{ Wendy Wei \\ William Xue \\ Andrew Xia }
+\newcommand{\ps}{ Problem Set 3 }
+
+%\pagestyle{headings}
+\usepackage[dvips]{graphics,color}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{latexsym}
+\usepackage{hyperref}
+\usepackage{listings}
+\setlength{\parskip}{1pc}
+\setlength{\parindent}{0pt}
+\setlength{\topmargin}{-3pc}
+\setlength{\textheight}{9.5in}
+\setlength{\oddsidemargin}{0pc}
+\setlength{\evensidemargin}{0pc}
+\setlength{\textwidth}{6.5in}
+
+\newcommand{\answer}[1]{
+\newpage
+\noindent
+\framebox{
+	\vbox{
+		6.857 Homework \hfill {\bf \ps} \hfill \# #1  \\ 
+		\team \hfill \today
+	}
+}
+\bigskip
+
+}
+
+
+\begin{document}
+
+\answer{3-1 Security of “two-pass CBC”}
+
+\textbf{(a)} To decrypt this scheme, we are given $C_0, ... C_n$ and we want to decrypt and figure out $M_1, ... M_n$. We can assume we know the key $k$ and decryption function $D_k$.
+
+First, we need to figure out $B_i$ from $C_i$. We know that for $i \in [1, n]$,
+\begin{align*}
+    C_i &= E_k(B_i \oplus C_{i-1})
+    \\D_k(C_i) &= B_i \oplus C_{i-1}
+    \\D_k(C_i) \oplus C_{i-1} &= B_i
+\end{align*}
+Similarly, we know $B_0 = D_k(C_0) \oplus B_n = D_k(C_0) \oplus D_k(C_n) \oplus C_{n-1}$. Now, to go from $B_i$ to $A_i$, we know for $i \in [2, n]$, that 
+\begin{align*}
+    B_i &= E_k(A_i \oplus B_{i-1})
+    \\D_k(B_i) &= A_i \oplus B_{i-1}
+    \\D_k(B_i) \oplus B_{i-1} &= A_i
+    \\D_k(D_k(C_i) \oplus C_{i-1}) \oplus D_k(C_{i-1}) \oplus C_{i-2} &= A_i
+\end{align*}
+We know that $D_k(B_0) = A_0$, so $A_0 = D_k(D_k(C_0) \oplus D_k(C_n) \oplus C_{n-1})$. Thus, we also see that $A_1 = D_k(B_1) \oplus B_{0} = D_k(D_k(C_1) \oplus C_{0}) \oplus D_k(C_0) \oplus D_k(C_n) \oplus C_{n-1}$
+
+\textbf{(b)} This encryption mode is not IND-CCA2. 
+\begin{proof}
+Let the adversary choose $m_0 = 0^{n*d}, m_1 = 1^{n*d}$ -essentially $m_0$ is a series of $0$s of length $n*d$ where $d$ is the block size, and $m_1$ is a similar series of $1$s. Let $y = E_k(m_d)$ where $d \impliedby \text{Random}[0,1]$. Let $m_d[i]$ be the $i^{th}$ block of the message.
+
+Let $z$ contain $y[0], y[1], y[2]$. Assuming that $n > 3$, such that $z \subset y$, we can recompute $m_d[2]$ because we know from (a) that $m_d[2] = D_k(D_k(y[2]) \oplus y[1]) \oplus D_k(y[1]) \oplus y[0]$. At this point, it becomes very clear what the $d$ is, since $m_d[2]$ will either be all $0$s or all $1$s.
+\end{proof}
+
+\textbf{(c)} For this alternative two-pass CBC mode, we reverse the intermediate blocks before running the second pass. We are given $C_0, ... C_n$ and we want to decrypt and figure out $M_1, ... M_n$. We can assume we know the key $k$ and decryption function $D_k$.
+
+First, we need to figure out $B_i$ from $C_i$. We know that for $i \in [1, n]$,
+\begin{align*}
+    C_i &= E_k(B_{n+1-i} \oplus C_{i-1})
+    \\D_k(C_i) &= B_{n+1-i} \oplus C_{i-1}
+    \\D_k(C_i) \oplus C_{i-1} &= B_{n+1-i}
+    \\ B_i &= D_k(C_{n+1-i}) \oplus C_{n-i}
+\end{align*}
+And that $B_0 = D_k(C_0) \oplus B_n = D_k(C_0) \oplus D_k(C_{1}) \oplus C_{0}$
+Now, to go from $B_i$ to $A_i$, we know for $i \in [1, n-1]$, that 
+\begin{align*}
+    B_i &= E_k(A_i \oplus B_{i-1})
+    \\D_k(B_i) &= A_i \oplus B_{i-1}
+    \\D_k(B_i) \oplus B_{i-1} &= A_i
+    \\D_k(D_k(C_{n+1-i}) \oplus C_{n-i}) \oplus D_k(C_{n-i}) \oplus C_{n-i-1} &= A_i
+\end{align*}
+We also know $D_k(B_0) = A_0$, so $A_0 = D_k(D_k(C_0) \oplus B_n = D_k(C_0) \oplus D_k(C_{1}) \oplus C_{0})$. We also know $A_n = D_k(B_n) \oplus B_{n-1} = D_k(D_k(C_{1}) \oplus C_{0}) \oplus D_k(C_{2}) \oplus C_{1}$
+
+\textbf{(d)} In this second scheme, while we reverse the order of the intermediate blocks for the second pass, the scheme is still not IND-CCA2 secure.
+
+\begin{proof}
+Similar to (b), let the adversary choose $m_0 = 0^{n*d}, m_1 = 1^{n*d}$ -essentially $m_0$ is a series of $0$s of length $n*d$ where $d$ is the block size, and $m_1$ is a similar series of $1$s. Let $y = E_k(m_d)$ where $d \impliedby \text{Random}[0,1]$. Let $m_d[i]$ be the $i^{th}$ block of the message.
+
+Through a prefix attack, let $z$ contain $y[0], y[1], y[2]$. Assuming that $n > 3$, such that $z \subset y$, we can recompute $m_d[2]$ because we know from (c) that $m_d[n]= D_k(D_k(y[1]) \oplus y[0]) \oplus D_k(y[2]) \oplus y[1]$. At this point, it becomes very clear what the $d$ is, since $m_d[n]$ will either be all $0$s or all $1$s. Even though we are decrypting a different index of the original message block from the ciphertext blocks, we can still recover what the block is.
+\end{proof}
+
+\answer{3-2 The Legend of SATelda}
+
+\textbf{(a)} The game is like secret sharing in that the more levels you solve, the more information you have about the key. Thinking of the defeating of a demon as equivalent to getting a friend to help reconstruct the secret $s$. Once you have enough clauses to deterministically know $K$, defeating more demons won't reveal more information about $K$. This is similar to how, once we have more than threshold $t$ friends, getting more friends to help reconstruct the secret won't reveal any more information.
+
+However, the game is also not like secret sharing, since there is a random element in revealing the secret key $K$. For $|K| = 256, $, the game requires defeating a minimum of ceil$(K/3) = 86$ levels. However, if the clauses generated are repetitive or overlapping, then we will need more than ceil$(K/3)$ levels. Shamir's secret sharing, on the other hand, guarantees that we can reveal the secret once we have $t$ friends. 
+
+\textbf{(b)} The NP-completeness of 3-SAT is not a problem. Attaining $n$-bits of security requires $2^n$ guesses which by definition is a exponential and non-polynomial process. In fact, we like 3-SAT as a NP-complete problem; otherwise being able to reconstruct $K$ in poly time would mean that our security level by using this secret scheme would be compromised.
+
+\textbf{(c)} 
+In the three trials that I ran, the player had to have defeated 2983, 3124, and 2721 demons respectively. The code used is provided below.
+
+\begin{lstlisting}
+import random
+from satispy import Variable, Cnf
+from satispy.solver import Minisat
+
+numVars = 256
+maxClauses = 20000
+# Make list of variables
+v = [Variable('v%d' % x) for x in range(1, numVars+1)]
+
+# Create random 3-literal clauses
+allClauses = []
+for i in xrange(maxClauses):
+	# For each clause, randomly choose 3 variables
+	a, b, c = random.sample(range(numVars), 3)
+
+	# Signs can't all be negative, or else not a consistent clause with K=111...111
+	sign = random.choice([[1,1,1], [1,1,0], [1,0,1], [1,0,0], [0,1,1], [0,1,0], [0,0,1]])
+	v_a = v[a] if sign[0] else -v[a]
+	v_b = v[b] if sign[1] else -v[b]
+	v_c = v[c] if sign[2] else -v[c]
+
+	exp = v_a | v_b | v_c
+	print exp
+	allClauses.append(exp)
+
+
+# K = 111...111
+kbits = 256
+key = [x for x in xrange(1, 257)]
+
+# Binary search on numClauses to find how many are needed
+first = 86
+last = maxClauses
+success = False
+	
+while first<=last:	
+	numClauses = (first + last)/2
+
+	clauseIndices = random.sample(xrange(maxClauses), numClauses)
+	clauses = [allClauses[index] for index in clauseIndices]
+
+	# Build expression with clauses
+	exp = Cnf()
+	for clause in clauses:
+		exp &= clause
+
+	solver = Minisat()
+	solution = solver.solve(exp)
+
+
+	if solution.success:
+		solutions = [solution[v[i]] if v[i] in solution.varmap else False for i in range(numVars)]
+		solutions = [(i+1) if solutions[i] else -(i+1) for i in range(numVars)]
+		success = solutions==key
+		print (numClauses, success)
+	else:
+		# should never reach this point
+		print "The expression cannot be satisfied"
+
+	if success:
+		# go left
+		last = numClauses - 5
+	else:
+		# go right
+		first = numClauses + 5
+
+print "Found!!"
+print "Num clauses needed: " + str(numClauses)
+\end{lstlisting}
+
+
+
+
+\answer{3-3 Speck or Random? Distinguishing Reduced Round Speck}
+We use the chi-squared test to distinguish r-round Speck. The code to do so is as follows:
+
+\begin{verbatim}
+B = 256
+r = 6
+
+# Useful constants for the chi_squared test
+E_i = B/16.0
+N = 256
+mean = N - 1.0
+std_dev = (2.0*(N-1.0))**0.5
+
+def distinguish(ctxt_blocks):
+    """
+    Distinguishes whether a set of ciphertext blocks is random or not.
+    Returns 1 if ctxt_blocks is random, 0 otherwise.
+    """
+    # Perform the chi_squared_test
+    chi_squared = 0.0
+    for i in range(N):
+        O_i = count_byte_value_matches(ctxt_blocks, i)
+        chi_squared += ((E_i - O_i)**2)/E_i
+
+    # Return 1 (true) if the ciphertext is random.
+    # Return 0 (false) if the ciphertext is not random.
+    return (chi_squared <= mean + 3.0*std_dev)
+
+def count_byte_value_matches(ctxt_blocks, i):
+    """
+    Counts the number of bytes in our ciphertext blocks that match i.
+    """
+    num_matches = 0.0
+    for block in ctxt_blocks:
+        for byte in block:
+            if ord(byte) == i:
+                num_matches += 1.0
+    return num_matches
+\end{verbatim}
+
+First, we obtain the ciphertext blocks. Note that this can be generated either randomly or via Speck. Then for each $i$ in our possible value range (in this case $256$, as we are looking at bytes), we count the number of matches for that $i$ in our ciphertext blocks. We observe that if our ciphertext was truly random, then we would expect $i$ to be around $16$. We then iteratively compute our chi-squared statistic via the formula: 
+
+$$\chi^2= \sum^{N-1}_{i=0} \frac{(E_i - O_i)^2}{E_i}$$
+
+Note that the term $$\frac{(E_i - O_i)^2}{E_i}$$ should be roughly zero if our ciphertext is random because we would expect our count of matching values to $i$ to be roughly the expected count of matching values.
+
+Once we have iterated through all of our $i$, we have our final chi-squared statistic. We conclude that our ciphertext is not random if our chi-squared statistic is more than three standard deviations above the expected chi-squared statistic (in the random case; i.e. the difference between our chi-squared statistic and the chi-squared statistic we would expect to see in the random case is large enough to be statistically significant). Otherwise, we cannot conclude that our ciphertext is not random, so we return that it is random. 
+
+After running our distinguisher, we find that we can distinguish up to 5-round Speck. Any more than that, and it becomes difficult to distinguish Speck from random bytes. Concretely, running twenty trials of our distinguisher on a ciphertext either generated randomly or via 6-round Speck (each with probability $\frac{1}{2}$) ten times yields the following results for the number of ciphertexts we successfully distinguish:
+
+$$[12, 11, 13, 11, 12, 12, 12, 11, 8, 10]$$
+
+We run twenty trials each time, so we distinguish a total of $\frac{122}{200} = 56\%$ of our ciphertexts.
+
+In contrast, running ten trials of our distinguisher on 5-round speck or lower yields a $100\%$ success rate.
+
+\end{document}
