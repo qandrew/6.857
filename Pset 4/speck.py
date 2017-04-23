@@ -11,15 +11,15 @@ ROR = lambda x, r: (x >> r) | uint64(x << (64 - r))
 
 def R(x, y, k):
     x = ROR(x, 8)
-    print "x ROR 8 \t", ones(x), "\t", format(x,'064b')
+    # print "x ROR 8 \t", ones(x), "\t", format(x,'064b')
     x = uint64(x + y)
-    print "x + y   \t", ones(x), "\t", format(x,'064b')
+    # print "x + y   \t", ones(x), "\t", format(x,'064b')
     x = x ^ k
-    print "x XOR k \t", ones(x), "\t", format(x,'064b')
+    # print "x XOR k \t", ones(x), "\t", format(x,'064b')
     y = ROL(y, 3)
-    print "y ROL 3 \t", ones(y), "\t", format(y,'064b')
+    # print "y ROL 3 \t", ones(y), "\t", format(y,'064b')
     y = y ^ x
-    print "y XOR x \t", ones(y), "\t", format(y,'064b')
+    # print "y XOR x \t", ones(y), "\t", format(y,'064b')
     return x, y
 
 table = [bin(i).count('1') for i in range(256)]
@@ -40,15 +40,15 @@ def leak(a, b, x, y, r):
     print "x \t", ones(x), "\t", x
     print "y \t", ones(y), "\t", y
     s = ones(x) + ones(y)
-    print "round 0", ones(x), "+", ones(y), "=", s
+    print "round 0", ones(x), "+", ones(y), "=", s, "\thigh", ones(a), "low", ones(b)
     for i in range(1,r ):
     # for i in range(r - 1):
-        print "entering round key k=", i
+        # print "entering round key k=", i
         a, b = R(a, b, i)
-        print "entering round pt"
+        # print "entering round pt"
         x, y = R(x, y, b)
         s += ones(x) + ones(y)
-        print "round", i+1, ones(x), "+", ones(y), "=", s
+        print "round", i, ones(x), "+", ones(y), "=", s, "\thigh", ones(a), "low", ones(b)
     return s
 
 def r64():
@@ -57,11 +57,11 @@ def r64():
 if __name__ == "__main__":
     a = 1 #r64()  # high 64 bits of secret key
     b = 2 #r64()  # low 64 bits of secret key
-    x = 3 #r64()      # high 64 bits of plaintext
+    x = 7<<33 #r64()      # high 64 bits of plaintext
     y = 4 #r64()      # low 64 bits of plaintext
     print 'HIGH a={0:064b}'.format(a), ones(a)
     print 'LOW  b={0:064b}'.format(b), ones(b)
-    o = leak(a, b, x, y, r=2) # num of ones in the XOR outputs
+    o = leak(a, b, x, y, r=32) # num of ones in the XOR outputs
     print "o \t", o
 
     # print ROR(3,1), bin(ROR(3,1))
