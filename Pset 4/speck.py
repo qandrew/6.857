@@ -34,13 +34,13 @@ def leak(a, b, x, y, r):
     # r rounds
     # a, b is the high/low key
     # x, y is the high/low plaintext
-    print "x \t", ones(x), "\t", x
-    print "y \t", ones(y), "\t", y
+    # print "x \t", ones(x), "\t", x
+    # print "y \t", ones(y), "\t", y
     x, y = R(x, y, b) 
-    print "x \t", ones(x), "\t", x
-    print "y \t", ones(y), "\t", y
+    # print "x \t", ones(x), "\t", x
+    # print "y \t", ones(y), "\t", y
     s = ones(x) + ones(y)
-    print "round 0", ones(x), "+", ones(y), "=", s, "\thigh", ones(a), "low", ones(b)
+    # print "round 0", ones(x), "+", ones(y), "=", s, "\thigh", ones(a), "low", ones(b)
     for i in range(1,r ):
     # for i in range(r - 1):
         # print "entering round key k=", i
@@ -48,7 +48,7 @@ def leak(a, b, x, y, r):
         # print "entering round pt"
         x, y = R(x, y, b)
         s += ones(x) + ones(y)
-        print "round", i, ones(x), "+", ones(y), "=", s, "\thigh", ones(a), "low", ones(b)
+        # print "round", i, ones(x), "+", ones(y), "=", s, "\thigh", ones(a), "low", ones(b)
     return s
 
 def r64():
