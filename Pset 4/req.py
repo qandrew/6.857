@@ -9,15 +9,9 @@ import urllib2
 
 NODE_URL = "http://6857speck.csail.mit.edu:4000/?num="
 # NODE_URL = "http://127.0.0.1:4000/?num="
-SEARCH = 1
 
-LOWKEY = 0
-# after we found answer
-# LOWKEY = 0b1000111001000101101110011101001100000101001110000000011111111101
-
-HIGHKEY = 0
-# after we found answer
-# HIGHKEY = 0b10000001010100010111011101111101101101101010111110110000111010
+LOWKEY = 0 #modify if found already
+HIGHKEY = 0 #modify if found already
 
 def load(count = 1):
 	if count<=10000:
@@ -76,9 +70,6 @@ def avgVal(arraytoSearch, arrayWithInd):
 if __name__ == "__main__":
 	array = load(100000)
 	print "imported"
-	# print array
-	# a,b,c = array[0]
-	# print a, b, c
 	
 	if LOWKEY == 0:
 		# if we haven't found the lowkey yet
@@ -104,7 +95,6 @@ if __name__ == "__main__":
 		print "\nDICTS L!!"
 		FUCKTHIS = 0
 		for key in xrange(63,-1,-1): # iterate from 63 to 0
-		# for key in dictOfIndex0:
 			av = avgVal(array,dictOfIndex0[key])
 			# print key, len(dictOfIndex0[key]), dictOfIndex0[key], av
 			print key, len(dictOfIndex0[key]), av
@@ -128,10 +118,10 @@ if __name__ == "__main__":
 			for i in xrange(64):
 				if checkIfBothIndex1(elt[0],elt[1],i):
 					dictOfIndex1[i].append(ind)
+					
 		print "\nDICTS H!!"
 		FUCKTHIS = 0
 		for key in xrange(63,-1,-1): # iterate from 63 to 0
-		# for key in dictOfIndex0:
 			av = avgVal(array,dictOfIndex1[key])
 			# print key, dictOfIndex0[key], "\n\t", avgVal(array,dictOfIndex0[key])
 			print key, len(dictOfIndex1[key]), av
@@ -147,7 +137,6 @@ if __name__ == "__main__":
 	countCorrect = 0
 	for elt in array:
 		o = speck.leak(HIGHKEY, LOWKEY, elt[0], elt[1], r=32) # num of ones in the XOR outputs
-		# print "our out", o
 		if elt[2] == o:
 			countCorrect += 1
 
